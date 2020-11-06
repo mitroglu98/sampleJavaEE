@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" template="/WEB-INF/templates/default.xhtml" xmlns:p="http://primefaces.org/ui">
+	<ui:define name="content">
+		<h1>Sample student application</h1>
+
+		<h:form id="reg">
+			<h2>Students form</h2>
+
+			<p:outputLabel value="Ime" />
+			<p:inputText value="#{studentView.student.name}" required="true" requiredMessage="Ime je obavezno" />
+			<br />
+			<br />
+			<p:outputLabel value="Telefon" />
+			<p:inputText value="#{studentView.student.phoneNumber}" required="true" requiredMessage="Telefon je obavezan" />
+			<br />
+			<br />
+			<p:outputLabel value="Email" />
+			<p:inputText value="#{studentView.student.email}" required="true" requiredMessage="Email je obavezan" />
+			<br />
+			<br />
+			<p:commandButton value="Sačuvaj" actionListener="#{studentView.addNewStudent()}" update="studentsTableId" />
+
+			<p:dataTable id="studentsTableId" var="s" value="#{studentView.students}">
+				<p:column headerText="Ime">
+					<h:outputText value="#{s.name}" />
+				</p:column>
+
+				<p:column headerText="Telefon">
+					<h:outputText value="#{s.phoneNumber}" />
+				</p:column>
+
+				<p:column headerText="Email">
+					<h:outputText value="#{s.email}" />
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
