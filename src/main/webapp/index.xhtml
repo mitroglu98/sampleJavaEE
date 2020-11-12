@@ -20,17 +20,29 @@
 			<br />
 			<br />
 			<p:commandButton value="Sačuvaj" actionListener="#{studentView.addNewStudent()}" update="studentsTableId" />
+			<br />
+			<br />
 
+			<br />
+			<br />
+			<p:outputLabel value="Pretraga studenta po imenu:" />
+			<br />
+			<br />
+			<p:inputText value="#{studentView.imeZaPretragu}">
+				<p:ajax event="keyup" update="studentsTableId" process="@this" listener="#{studentView.pretraziPoImenu}" />
+			</p:inputText>
+			<br />
+			<br />
 			<p:dataTable id="studentsTableId" var="s" value="#{studentView.students}">
-				<p:column headerText="Ime">
+				<p:column headerText="Ime" filterBy="#{s.name}" filterMatchMode="contains">
 					<h:outputText value="#{s.name}" />
 				</p:column>
 
-				<p:column headerText="Telefon">
+				<p:column headerText="Telefon" filterBy="#{s.phoneNumber}" filterMatchMode="contains">
 					<h:outputText value="#{s.phoneNumber}" />
 				</p:column>
 
-				<p:column headerText="Email">
+				<p:column headerText="Email" filterBy="#{s.email}" filterMatchMode="contains">
 					<h:outputText value="#{s.email}" />
 				</p:column>
 

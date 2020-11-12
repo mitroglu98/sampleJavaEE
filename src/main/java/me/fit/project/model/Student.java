@@ -26,13 +26,15 @@ import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@NamedQueries({ @NamedQuery(name = Student.GET_ALL, query = "Select s from Student s") })
+@NamedQueries({ @NamedQuery(name = Student.GET_ALL, query = "Select s from Student s"),
+		@NamedQuery(name = Student.GET_BY_NAME, query = "Select s from Student s where s.name = :ime") })
 @XmlRootElement
 public class Student implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	public static final String GET_ALL = "Student.getAll";
+	public static final String GET_BY_NAME = "Student.getByName";
 
 	@Id
 	@GeneratedValue
@@ -43,6 +45,18 @@ public class Student implements Serializable {
 	private String email;
 
 	private String phoneNumber;
+
+	public Student() {
+		super();
+	}
+
+	public Student(Long id, String name, String email, String phoneNumber) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+	}
 
 	public Long getId() {
 		return id;

@@ -12,7 +12,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import me.fit.project.model.Student;
-import me.fit.project.service.StudentService;
+import me.fit.project.service.api.StudentService;
+import me.fit.project.service.impl.StudentServiceImpl;
 
 @Named
 @ViewScoped
@@ -24,11 +25,13 @@ public class StudentView implements Serializable {
 	private FacesContext facesContext;
 
 	@Inject
-	private StudentService studentService;
+	private StudentServiceImpl studentService;
 
 	private Student student;
 
 	private List<Student> students;
+	
+	private String imeZaPretragu;
 
 	@PostConstruct
 	public void initNewMember() {
@@ -49,6 +52,14 @@ public class StudentView implements Serializable {
 		}
 	}
 
+	public void pretraziPoImenu() {
+		if(imeZaPretragu.isEmpty()) {
+			students = studentService.getAllStudents();
+			return;
+		}
+		students = studentService.getByName(imeZaPretragu);
+	}
+	
 	public Student getStudent() {
 		return student;
 	}
@@ -63,6 +74,14 @@ public class StudentView implements Serializable {
 
 	public void setStudents(List<Student> students) {
 		this.students = students;
+	}
+
+	public String getImeZaPretragu() {
+		return imeZaPretragu;
+	}
+
+	public void setImeZaPretragu(String imeZaPretragu) {
+		this.imeZaPretragu = imeZaPretragu;
 	}
 
 }
