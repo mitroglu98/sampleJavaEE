@@ -11,10 +11,6 @@
 			<p:inputText value="#{studentView.student.name}" required="true" requiredMessage="Ime je obavezno" />
 			<br />
 			<br />
-			<p:outputLabel value="Telefon" />
-			<p:inputText value="#{studentView.student.phoneNumber}" required="true" requiredMessage="Telefon je obavezan" />
-			<br />
-			<br />
 			<p:outputLabel value="Email" />
 			<p:inputText value="#{studentView.student.email}" required="true" requiredMessage="Email je obavezan" />
 			<br />
@@ -38,15 +34,33 @@
 					<h:outputText value="#{s.name}" />
 				</p:column>
 
-				<p:column headerText="Telefon" filterBy="#{s.phoneNumber}" filterMatchMode="contains">
-					<h:outputText value="#{s.phoneNumber}" />
-				</p:column>
-
 				<p:column headerText="Email" filterBy="#{s.email}" filterMatchMode="contains">
 					<h:outputText value="#{s.email}" />
 				</p:column>
 
+				<p:column headerText="Telefon">
+					<ui:repeat var="phone" value="#{studentView.student.phones}">
+						<h:outputText value="#{phone.number}" />
+					</ui:repeat>
+				</p:column>
+
+				<p:column headerText="Dodaj Telefon">
+					<p:commandButton value="+" oncomplete="PF('addNumberDialog').show()">
+						<f:setPropertyActionListener value="#{s}" target="#{studentView.selectedStudent}" />
+					</p:commandButton>
+				</p:column>
+				
+
 			</p:dataTable>
+
+			<p:dialog header="Car Info" widgetVar="addPhoneDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="addPhoneId" style="text-align:center;">
+					<p:panelGrid columns="2">
+						<p:outputLabel value="Broj telefona" />
+						<p:inputText value="#{studentView.student.name}" required="true" requiredMessage="Ime je obavezno" />
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
 		</h:form>
 	</ui:define>
 </ui:composition>

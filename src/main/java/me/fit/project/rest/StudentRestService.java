@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import me.fit.project.model.Student;
+import me.fit.project.service.api.StudentService;
 import me.fit.project.service.impl.StudentServiceImpl;
 
 @Path("/students")
@@ -25,7 +26,7 @@ public class StudentRestService {
 	private Logger log;
 
 	@Inject
-	private StudentServiceImpl studentService;
+	private StudentService studentService;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

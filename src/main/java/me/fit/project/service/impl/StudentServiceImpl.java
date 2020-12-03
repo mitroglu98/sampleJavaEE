@@ -8,9 +8,10 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import me.fit.project.model.Student;
+import me.fit.project.service.api.StudentService;
 
 @Stateless
-public class StudentServiceImpl {
+public class StudentServiceImpl implements StudentService {
 
 	@Inject
 	private Logger log;
