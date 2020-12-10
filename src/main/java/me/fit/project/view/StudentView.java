@@ -31,20 +31,24 @@ public class StudentView implements Serializable {
 
 	private Student student;
 
+	private Phone phone;
+
 	private List<Student> students;
 
 	private String imeZaPretragu;
-	
+
 	private Student selectedStudent;
 
 	@PostConstruct
 	public void initNewMember() {
 		student = new Student();
+		phone = new Phone();
 		students = studentService.getAllStudents();
 	}
 
 	public void addNewStudent() throws Exception {
 		try {
+			System.out.println(student.getName());
 			studentService.addStudent(student);
 			student = new Student();
 			FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registered!", "Registration successful");
@@ -62,6 +66,17 @@ public class StudentView implements Serializable {
 			return;
 		}
 		students = studentService.getByName(imeZaPretragu);
+	}
+
+	public void dodajTelefon() {
+		try {
+			selectedStudent.getPhones().add(phone);
+			phone.setStudent(selectedStudent);
+			studentService.addStudent(selectedStudent);
+			students = studentService.getAllStudents();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Student getStudent() {
@@ -139,7 +154,13 @@ public class StudentView implements Serializable {
 	public void setSelectedStudent(Student selectedStudent) {
 		this.selectedStudent = selectedStudent;
 	}
-	
-	
+
+	public Phone getPhone() {
+		return phone;
+	}
+
+	public void setPhone(Phone phone) {
+		this.phone = phone;
+	}
 
 }

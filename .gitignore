@@ -3,3 +3,4 @@
 .jsdtscope
 .tern-project
 org.eclipse.*
+*.class

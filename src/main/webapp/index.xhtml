@@ -7,28 +7,31 @@
 		<h:form id="reg">
 			<h2>Students form</h2>
 
-			<p:outputLabel value="Ime" />
-			<p:inputText value="#{studentView.student.name}" required="true" requiredMessage="Ime je obavezno" />
-			<br />
-			<br />
-			<p:outputLabel value="Email" />
-			<p:inputText value="#{studentView.student.email}" required="true" requiredMessage="Email je obavezan" />
-			<br />
-			<br />
-			<p:commandButton value="Sačuvaj" actionListener="#{studentView.addNewStudent()}" update="studentsTableId" />
-			<br />
-			<br />
+			<h:panelGroup id="addStudent">
 
-			<br />
-			<br />
-			<p:outputLabel value="Pretraga studenta po imenu:" />
-			<br />
-			<br />
-			<p:inputText value="#{studentView.imeZaPretragu}">
-				<p:ajax event="keyup" update="studentsTableId" process="@this" listener="#{studentView.pretraziPoImenu}" />
-			</p:inputText>
-			<br />
-			<br />
+				<p:outputLabel value="Ime" />
+				<p:inputText value="#{studentView.student.name}" required="true" requiredMessage="Ime je obavezno" />
+				<br />
+				<br />
+				<p:outputLabel value="Email" />
+				<p:inputText value="#{studentView.student.email}" required="true" requiredMessage="Email je obavezan" />
+				<br />
+				<br />
+				<p:commandButton value="Sačuvaj" actionListener="#{studentView.addNewStudent()}" update="reg" process="@this addStudent" />
+				<br />
+				<br />
+
+				<br />
+				<br />
+				<p:outputLabel value="Pretraga studenta po imenu:" />
+				<br />
+				<br />
+				<p:inputText value="#{studentView.imeZaPretragu}">
+					<p:ajax event="keyup" update="studentsTableId" process="@this" listener="#{studentView.pretraziPoImenu}" />
+				</p:inputText>
+				<br />
+				<br />
+			</h:panelGroup>
 			<p:dataTable id="studentsTableId" var="s" value="#{studentView.students}">
 				<p:column headerText="Ime" filterBy="#{s.name}" filterMatchMode="contains">
 					<h:outputText value="#{s.name}" />
@@ -39,25 +42,27 @@
 				</p:column>
 
 				<p:column headerText="Telefon">
-					<ui:repeat var="phone" value="#{studentView.student.phones}">
+					<ui:repeat var="phone" value="#{s.phones}">
 						<h:outputText value="#{phone.number}" />
+						<br/>
 					</ui:repeat>
 				</p:column>
 
 				<p:column headerText="Dodaj Telefon">
-					<p:commandButton value="+" oncomplete="PF('addNumberDialog').show()">
+					<p:commandButton value="+" oncomplete="PF('addPhoneDialog').show()" process="@this">
 						<f:setPropertyActionListener value="#{s}" target="#{studentView.selectedStudent}" />
 					</p:commandButton>
 				</p:column>
-				
+
 
 			</p:dataTable>
 
-			<p:dialog header="Car Info" widgetVar="addPhoneDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+			<p:dialog id="addPhone" header="Car Info" widgetVar="addPhoneDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 				<p:outputPanel id="addPhoneId" style="text-align:center;">
 					<p:panelGrid columns="2">
 						<p:outputLabel value="Broj telefona" />
-						<p:inputText value="#{studentView.student.name}" required="true" requiredMessage="Ime je obavezno" />
+						<p:inputText value="#{studentView.phone.number}" required="true" requiredMessage="Telefon je obavezan" />
+						<p:commandButton value="Sačuvaj" oncomplete="PF('addPhoneDialog').hide()" process="@this addPhone" actionListener="#{studentView.dodajTelefon()}" update="studentsTableId"/>
 					</p:panelGrid>
 				</p:outputPanel>
 			</p:dialog>

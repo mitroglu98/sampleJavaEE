@@ -21,11 +21,14 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -40,14 +43,15 @@ public class Student implements Serializable {
 	public static final String GET_BY_NAME = "Student.getByName";
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_seq")
+	@SequenceGenerator(name = "student_seq", sequenceName = "student_seq", allocationSize = 1)
 	private Long id;
 
 	private String name;
 
 	private String email;
 	
-	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="student")
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="student", fetch=FetchType.EAGER)
 	private Set<Phone> phones;
 
 	public Student() {

@@ -21,8 +21,10 @@ public class StudentServiceImpl implements StudentService {
 
 	public void addStudent(Student student) throws Exception {
 		log.info("Registering " + student.getName());
-		em.persist(student);
+		em.merge(student);
 	}
+	
+	
 
 	public Student findById(Long id) {
 		return em.find(Student.class, id);
