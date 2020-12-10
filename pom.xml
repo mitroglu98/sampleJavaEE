@@ -79,11 +79,7 @@
 			<artifactId>cdi-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-    <groupId>io.swagger</groupId>
-    <artifactId>swagger-jaxrs</artifactId>
-    <version>1.5.22</version>
-  </dependency>
+		
 
 		<!-- Import the Common Annotations API (JSR-250), we use provided scope as the API is included in JBoss WildFly -->
 		<dependency>
@@ -269,6 +265,8 @@
 						</configuration>
 					</plugin>
 				</plugins>
+				
+				
 			</build>
 		</profile>
 
