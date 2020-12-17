@@ -135,16 +135,9 @@ public class StudentView implements Serializable {
 		selectedStudent.setPhones(phones);
 	}
 
-	public int hashCode() {
-		return selectedStudent.hashCode();
-	}
 
 	public boolean equals(Object obj) {
 		return selectedStudent.equals(obj);
-	}
-
-	public String toString() {
-		return selectedStudent.toString();
 	}
 
 	public Student getSelectedStudent() {

@@ -49,5 +49,20 @@ public class StudentRestService {
 		}
 
 	}
-	
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/findStudent")
+	public Response findStudentByName(@QueryParam("name") String ime) {
+		try {
+			List<Student> students = studentService.getByName(ime);
+
+			return Response.ok(students).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return null;
+	}
+
 }

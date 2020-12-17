@@ -23,8 +23,6 @@ public class StudentServiceImpl implements StudentService {
 		log.info("Registering " + student.getName());
 		em.merge(student);
 	}
-	
-	
 
 	public Student findById(Long id) {
 		return em.find(Student.class, id);

@@ -53,6 +53,9 @@ public class Student implements Serializable {
 	
 	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="student", fetch=FetchType.EAGER)
 	private Set<Phone> phones;
+	
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="student", fetch=FetchType.EAGER)
+	private Set<StudentSubject> studentSubjects;
 
 	public Student() {
 		super();
